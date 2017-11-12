@@ -7,7 +7,6 @@ os.chdir(dir)
 
 dx = 0.1
 dy = dx
-dt = 0.1
 alpha = 1.
 grid_x = 100
 grid_y = 100
@@ -27,10 +26,7 @@ def plot_activate(X,Y,n):
 
 def init():
     T = np.zeros((grid_x,grid_y))
-    T[0:20, :] = 80.
-    T[grid_x-20:grid_x, :] = 80.
-    T[:,0:20] = 80.
-    T[:,grid_y-20:grid_y] = 80.
+    T[70:grid_x, 70:grid_y] = 80
     return T
 
 x = np.linspace(0,dx * (grid_x - 1), grid_x)
@@ -44,7 +40,6 @@ levels = np.arange(0.,100.,0.2)
 count = 1
 icount = 0
 T = init()
-print(T)
 def cyc(n, plot=True):
     global T, icount
     Tn = T.copy()
@@ -80,12 +75,12 @@ def neu(n, g=0,plot=True):
         plot_activate(X,Y,n)
     icount += 1
 fig = plt.figure()
-a = animation.FuncAnimation(fig, neu,frames=200,interval=10)
+a = animation.FuncAnimation(fig, neu, fargs=(g,),frames=200,interval=10)
 plt.show()
 # a.save('neumann_G.mp4',fps=30,extra_args=['-vcodec','libx264'])
 # for i in range(10000):
 #     cyc(1,False)
-n = 10000
+#n = 10000
 # plot_activate(X,Y,n)
 # plt.savefig('cyc/cyc-end.jpg')
 # T = init()
