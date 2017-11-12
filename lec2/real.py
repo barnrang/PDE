@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from matplotlib import animation
 dir = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir)
 
@@ -42,18 +43,19 @@ icount = 1
 ###	icount += 1
 
 #FIX WALL
-for n in range(1,100):
+def PDE(n):
+	global T
 	plt.cla()
 	plt.clf()
 	Tn = T.copy()
 	left = np.roll(Tn,1,axis=0)
 	right = np.roll(Tn,-1,axis=0)
-	up = np.roll(Tn,-1,axis=1)
 	down = np.roll(Tn,1,axis=1)
-	left[0,:],right[grid_x-1,:],up[:,0],down[:,grid_y-1] = 0,0,0,0
+	up = np.roll(Tn,-1,axis=1)
+	left[0,:],right[grid_x-1,:],down[:,0],up[:,grid_y-1] = 0,0,0,0
 	T = Tn+d*(up+down+right+left-4*Tn)
-	T[0,1:grid_y-1] = d * Tn[1,1:grid_y-1]
-	T[grid_x-1,1:grid_y-1] += d * Tn[grid_x-1,1:grid_y-1]
+	T[0,1:grid_y-1] += d * Tn[1,1:grid_y-1]
+	T[grid_x-1,1:grid_y-1] += d * Tn[grid_x-2,1:grid_y-1]
 	T[1:grid_x-1,0] += d * Tn[1:grid_x-1,1]
 	T[1:grid_x-1,grid_y-1] += d * Tn[1:grid_x-1,grid_y-2]
 	plt.xlim(0.,np.max(x))
@@ -61,5 +63,8 @@ for n in range(1,100):
 	cl = plt.contourf(X,Y,T,levels,cmap=cmap)
 	plt.colorbar(cl)
 	plt.text(np.max(x)*0.8,np.max(y)+dy,"t=%01.5f"%(dt*n))
-	plt.savefig('cyclic_%04i.jpg'%(icount))
-	icount += 1
+	# plt.savefig('cyclic_%04i.jpg'%(icount))
+	# icount += 1
+fig = plt.figure()
+a = animation.FuncAnimation(fig, PDE, frames = 100, interval=50)
+plt.show()
