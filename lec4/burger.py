@@ -116,9 +116,9 @@ def neu(n, g=0, plot_type=1):
     ghost4 = ghost4 > 0 * ghost4
     left[0,:],right[grid_x-1,:],up[:,grid_y-1],down[:,0] = 0,0,0,0
     T = Tn-dt*(np.sqrt(Tn ** 2))/dx*(2 * Tn - left - down) + d2 * (left+right+up+down-4*Tn)
-    T[0,1:grid_y-1] += d2 * ghost1 + dt*(np.sqrt(T[0,1:grid_y-1] ** 2))/dx*ghost1
+    T[0,1:grid_y-1] += d2 * ghost1 + dt*(np.sqrt(Tn[0,1:grid_y-1] ** 2))/dx*ghost1
     T[grid_x-1,1:grid_y-1] += d2 * ghost2
-    T[1:grid_x-1,0] += d2 * ghost3 + dt*(np.sqrt([1:grid_x-1,0] ** 2))/dx*ghost3
+    T[1:grid_x-1,0] += d2 * ghost3 + dt*(np.sqrt(Tn[1:grid_x-1,0] ** 2))/dx*ghost3
     T[1:grid_x-1,grid_y-1] += d2 * ghost4
     #T[0,0],T[0,grid_y-1],T[grid_x-1,0],T[grid_x-1,grid_y-1] = Tn[0,0], Tn[0,grid_y-1], Tn[grid_x-1,0],Tn[grid_x-1,grid_y-1]
     if plot_type == 1:
