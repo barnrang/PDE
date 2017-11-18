@@ -11,7 +11,7 @@ f = np.zeros_like(model)
 g = np.zeros_like(model)
 f[40:60] = 1.
 g[40], g[60] = 1./dx, -1./dx
-C = 0.9
+C = 0.6
 u = 1.
 dt = np.abs(C * dx/u)
 
@@ -23,7 +23,7 @@ def plot_line(n, folder): #Usual Plot Function
     plt.plot(model,f)
     plt.text(80.,1.51,'t=%05.2f'%(n))
     plt.text(10.,1.51,folder) #type of analysis
-    plt.savefig('%s/timestep_%04i.jpg'%(folder, n))
+    plt.savefig('%s/timestep_%04i.jpg'%(folder, n)) #save in folder[type] timestep[n]
 
 def upwind(n, toplot=True):
     global f
@@ -66,8 +66,11 @@ def ana(n, toplot=True):
     if toplot:
         plot_line(n, 'ana')
 
+# fig = plt.figure()
+# a = animation.FuncAnimation(fig, upwind,frames=200,interval=10)
+# plt.show()
 for i in range(1000):
     toplot = False
-    if i in [100,300,500,700]:
+    if i in [0]:
         toplot = True
-    upwind(i, toplot)
+    ana(i, toplot)
