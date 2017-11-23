@@ -7,7 +7,7 @@ os.chdir(dir)
 
 dx = 0.1
 dy = dx
-alpha = 1.
+alpha = 0.5
 grid_x = 100
 grid_y = 100
 nt = 100
@@ -26,8 +26,14 @@ def plot_activate(X,Y,n):
 
 def init():
     T = np.zeros((grid_x,grid_y))
-    T[70:grid_x, 70:grid_y] = 80
+    T[20:45, 40:60] = 80.
+    T[55:80, 40:60] = 80.
     return T
+
+# def init():
+#     T = np.zeros((grid_x,grid_y))
+#     T[70:grid_x, 70:grid_y] = 80
+#     return T
 
 x = np.linspace(0,dx * (grid_x - 1), grid_x)
 y = np.linspace(0,dy * (grid_y - 1), grid_y)
