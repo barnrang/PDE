@@ -7,7 +7,7 @@ os.chdir(dir)
 
 dx = 0.1
 dy = dx
-alpha = 0.5
+alpha = 1.
 grid_x = 100
 grid_y = 100
 nt = 100
@@ -24,16 +24,16 @@ def plot_activate(X,Y,n):
     plt.colorbar(cl)
     plt.text(np.max(x)*0.8,np.max(y)+dy,"t=%01.5f"%(dt*n))
 
-def init():
-    T = np.zeros((grid_x,grid_y))
-    T[20:45, 40:60] = 80.
-    T[55:80, 40:60] = 80.
-    return T
-
 # def init():
 #     T = np.zeros((grid_x,grid_y))
-#     T[70:grid_x, 70:grid_y] = 80
+#     T[20:45, 40:60] = 80.
+#     T[55:80, 40:60] = 80.
 #     return T
+
+def init():
+    T = np.zeros((grid_x,grid_y))
+    T[70:grid_x, 70:grid_y] = 80
+    return T
 
 x = np.linspace(0,dx * (grid_x - 1), grid_x)
 y = np.linspace(0,dy * (grid_y - 1), grid_y)
@@ -41,7 +41,7 @@ X,Y = np.meshgrid(x,y)
 
 cmap = plt.cm.get_cmap("jet")
 cmap.set_over('grey')
-g = 0.1
+g = 0
 levels = np.arange(0.,100.,0.2)
 count = 1
 icount = 0
@@ -82,8 +82,8 @@ def neu(n, g=0,plot=True):
     icount += 1
 fig = plt.figure()
 a = animation.FuncAnimation(fig, neu, fargs=(g,),frames=200,interval=10)
-plt.show()
-# a.save('neumann_G.mp4',fps=30,extra_args=['-vcodec','libx264'])
+#plt.show()
+a.save('neumann_noG.mp4',fps=30,extra_args=['-vcodec','libx264'])
 # for i in range(10000):
 #     cyc(1,False)
 #n = 10000

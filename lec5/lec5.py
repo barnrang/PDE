@@ -61,8 +61,7 @@ def cip(n, toplot=True):
 fana = f.copy()
 def ana(n, toplot=True):
     global f
-    usign = np.int(np.sign(u))
-    f = np.roll(fana,np.int(np.floor(usign*n*dt/dx)%fana.shape[0])) #move function according to the stream
+    f = np.roll(fana,np.int(np.floor(u*n*dt/dx)%fana.shape[0])) #move function according to the stream
     if toplot:
         plot_line(n, 'ana')
 
