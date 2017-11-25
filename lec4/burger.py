@@ -19,7 +19,7 @@ dt = d2 * (dx**2)/v
 
 def init():
     T = np.zeros((grid_x,grid_y))
-    T[70:90, 70:90] = 80.
+    T[70:90, 70:90] = 90.
     return T
 
 x = np.linspace(0,dx * (grid_x - 1), grid_x)
@@ -60,7 +60,7 @@ def cyc_var(n, plot_type=1):
     right = np.roll(Tn,-1,axis=0)
     up = np.roll(Tn,-1,axis=1)
     down = np.roll(Tn,1,axis=1)
-    T = Tn-dt*(np.sqrt(80**2-Tn ** 2))/dx*(2 * Tn - left - down) + d2 * (left+right+up+down-4*Tn)
+    T = Tn-dt*Tn/dx*(2 * Tn - left - down) + d2 * (left+right+up+down-4*Tn)
     if plot_type == 1:
         plot_activate(X,Y,n)
     if plot_type == 2:
@@ -77,7 +77,7 @@ def cyc_con(n, plot_type=1):
     right = np.roll(Tn,-1,axis=0)
     up = np.roll(Tn,-1,axis=1)
     down = np.roll(Tn,1,axis=1)
-    T = Tn-d1*(2 * Tn - 1.5*left - 0.5*down) + d2 * (left+right+up+down-4*Tn)
+    T = Tn-d1*(2 * Tn - 1*left - 1*down) + d2 * (left+right+up+down-4*Tn)
     if plot_type == 1:
         plot_activate(X,Y,n)
     if plot_type == 2:
@@ -126,8 +126,8 @@ def neu(n, g=0, plot_type=1):
     if plot_type == 2:
         plot3d_activate(X,Y,n)
 #fig = plt.figure()
-a = animation.FuncAnimation(fig, der_var,fargs=(2), frames=200,interval=10)
-a.save('3d-der-var.mp4',fps=30,extra_args=['-vcodec','libx264'])
-#plt.show()
+a = animation.FuncAnimation(fig, neu,fargs=(-100,2,), frames=200,interval=10)
+#a.save('3d-cyc-con.mp4',fps=30,extra_args=['-vcodec','libx264'])
+plt.show()
 # for i in range(100):
 #     matpde(1)

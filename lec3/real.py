@@ -14,6 +14,9 @@ nt = 100
 d = 0.1
 dt = d * (dx**2)/alpha
 
+
+
+
 def plot_activate(X,Y,n):
     global T
     plt.cla()
@@ -80,27 +83,31 @@ def neu(n, g=0,plot=True):
     if plot:
         plot_activate(X,Y,n)
     icount += 1
-fig = plt.figure()
-a = animation.FuncAnimation(fig, neu, fargs=(g,),frames=200,interval=10)
-#plt.show()
-a.save('neumann_noG.mp4',fps=30,extra_args=['-vcodec','libx264'])
-# for i in range(10000):
-#     cyc(1,False)
-#n = 10000
-# plot_activate(X,Y,n)
-# plt.savefig('cyc/cyc-end.jpg')
-# T = init()
-# for i in range(10000):
-#     dir(1,False)
-# plot_activate(X,Y,n)
-# plt.savefig('dir/dir-end.jpg')
-# T = init()
-# for i in range(n):
-#     neu(1,plot = False)
-# plot_activate(X,Y,n)
-# plt.savefig('neu/neu-d-endi-s.jpg')
-# T = init()
-# for i in range(10000):
-#     neu(1,20,False)
-# plot_activate(X,Y,n)
-# plt.savefig('neu/neuG-end.jpg')
+# fig = plt.figure()
+# a = animation.FuncAnimation(fig, dir,frames=200,interval=10)
+# #plt.show()
+# a.save('dir.mp4',fps=30,extra_args=['-vcodec','libx264'])
+n = 100000
+for i in range(n):
+    cyc(1,False)
+plot_activate(X,Y,n)
+plt.savefig('cyc/cyc-end.jpg')
+print('cyc-end-heat-sum:%03.5f'%(np.sum(T)))
+T = init()
+for i in range(n):
+    dir(1,False)
+plot_activate(X,Y,n)
+plt.savefig('dir/dir-end.jpg')
+print('dir-end-heat-sum:%03.5f'%(np.sum(T)))
+T = init()
+for i in range(n):
+    neu(1,plot = False)
+plot_activate(X,Y,n)
+plt.savefig('neu/neu-d-endi-s.jpg')
+print('neuG0-end-heat-sum:%03.5f'%(np.sum(T)))
+T = init()
+for i in range(n):
+    neu(1,20,False)
+plot_activate(X,Y,n)
+plt.savefig('neu/neuG-end.jpg')
+print('neuG20-end-heat-sum:%03.5f'%(np.sum(T)))
